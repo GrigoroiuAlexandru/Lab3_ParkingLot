@@ -1,5 +1,5 @@
-<header data-bs-theme="dark">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<header data-bs-theme="blue">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="${pageContext.request.contextPath}">Parking Lot</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
