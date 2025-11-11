@@ -1,11 +1,9 @@
-package org.example.parkinglot.entities;
+package com.parking.parkinglot.entities;
 
 import jakarta.persistence.*;
 
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
