@@ -10,7 +10,6 @@
         </c:if>
     </div>
     <c:if test="${not empty users}">
-
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
