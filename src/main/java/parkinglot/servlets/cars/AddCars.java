@@ -1,4 +1,4 @@
-package parkinglot.servlets;
+package parkinglot.servlets.cars;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -33,7 +33,7 @@ public class AddCars extends HttpServlet {
         request.setAttribute("users", users);
 
         // Forward către pagina addCar.jsp
-        request.getRequestDispatcher("/WEB-INF/pages/addCar.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/users/cars/addCar.jsp").forward(request, response);
     }
 
     @Override
