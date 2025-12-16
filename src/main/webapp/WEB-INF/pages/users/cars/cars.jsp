@@ -58,8 +58,15 @@
                             <!-- BUTONUL EDIT și ADD PHOTO - doar dacă ai WRITE_CARS -->
                             <c:if test="${pageContext.request.isUserInRole('WRITE_CARS')}">
                                 <td>
-                                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/EditCar?id=${car.id}">Edit Car</a>
-                                    <a class="btn btn-warning mt-2" href="${pageContext.request.contextPath}/AddCarPhoto?id=${car.id}">Add Photo</a>
+                                    <a class="btn btn-secondary btn-sm" href="${pageContext.request.contextPath}/EditCar?id=${car.id}">Edit</a>
+
+                                    <a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath}/AddCarPhoto?id=${car.id}">Add Photo</a>
+
+                                    <a class="btn btn-danger btn-sm"
+                                       href="${pageContext.request.contextPath}/DeleteCarPhoto?id=${car.id}"
+                                       style="margin-left: 5px;">
+                                        Delete Photo
+                                    </a>
                                 </td>
                             </c:if>
                         </tr>

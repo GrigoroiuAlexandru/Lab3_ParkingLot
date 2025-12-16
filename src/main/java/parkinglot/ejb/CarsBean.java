@@ -134,5 +134,19 @@ public class CarsBean {
 
         CarPhoto photo = photos.get(0);
         return new CarPhotoDto(photo.getId(), photo.getFilename(), photo.getFileType(), photo.getFileContent());
+
 }
+    public void deletePhoto(Long carId) {
+        LOG.info("deletePhoto");
+        Car car = entityManager.find(Car.class, carId);
+
+        if (car.getPhoto() != null) {
+            // Ștergem entitatea Photo
+            entityManager.remove(car.getPhoto());
+            // Rupem legătura din partea mașinii
+            car.setPhoto(null);
+            // Facem update la mașină
+            entityManager.merge(car);
+        }
+    }
 }

@@ -2,7 +2,7 @@ package parkinglot.servlets.cars;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.ServletSecurity; // NOU
+import jakarta.servlet.annotation.ServletSecurity;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "Cars", value = "/Cars")
-// REINTRODUCEM ServletSecurity, dar fără restricții specifice aici.
-// Regulile vor veni din web.xml (care cere READ_CARS).
 @ServletSecurity
 public class Cars extends HttpServlet {
 
@@ -33,7 +31,6 @@ public class Cars extends HttpServlet {
         int numberOfFreeParkingSpots = 10;
         request.setAttribute("numberOfFreeParkingSpots", numberOfFreeParkingSpots);
 
-        // Păstrăm calea corectată, fără slash-ul inițial
         request.getRequestDispatcher("WEB-INF/pages/users/cars/cars.jsp").forward(request, response);
     }
 
@@ -41,13 +38,26 @@ public class Cars extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String[] carIdsAsString = request.getParameterValues("car_ids");
+        // Verificăm dacă request-ul vine de la un buton individual de Delete
+        String deleteId = request.getParameter("delete_id");
 
-        if (carIdsAsString != null) {
-            List<Long> carIds = new ArrayList<>();
-            for (String carIdStr : carIdsAsString) {
-                carIds.add(Long.parseLong(carIdStr));
+        List<Long> carIds = new ArrayList<>();
+
+        if (deleteId != null) {
+            // Cazul 1: Ștergere individuală (s-a apăsat butonul roșu de pe rând)
+            carIds.add(Long.parseLong(deleteId));
+        } else {
+            // Cazul 2: Ștergere multiplă (s-a apăsat butonul "Delete Selected" de sus)
+            String[] carIdsAsString = request.getParameterValues("car_ids");
+            if (carIdsAsString != null) {
+                for (String carIdStr : carIdsAsString) {
+                    carIds.add(Long.parseLong(carIdStr));
+                }
             }
+        }
+
+        // Apelăm EJB-ul doar dacă avem ID-uri de șters
+        if (!carIds.isEmpty()) {
             carsBean.deleteCarsByIds(carIds);
         }
 
